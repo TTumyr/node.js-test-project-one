@@ -2,7 +2,7 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 
 const mongoConnect = (app, process) => {
-  MongoClient.connect(process.env.connect, { useNewUrlParser: true })
+  MongoClient.connect(process.env.mdbCon, { useNewUrlParser: true })
     .then(client => {
       db = client.db();
       console.log('connection to mDB established');
@@ -19,7 +19,7 @@ const mongoConnect = (app, process) => {
 };
 
 const getMdbEnv = () => {
-  return process.env.connect;
+  return process.env.mdbCon;
 };
 
 const getDb = () => {
@@ -30,9 +30,9 @@ const getDb = () => {
   throw 'No database';
 };
 
-const mdbStore = mongoStore => {
+const mdbStore = (mongoStore, process) => {
   const store = new mongoStore({
-    uri: process.env.connect,
+    uri: process.env.mdbCon,
     collection: 'sessions',
     clear_interval: 3600
   });

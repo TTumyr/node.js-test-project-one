@@ -1,11 +1,10 @@
 const express = require('express');
-const dotenv = require('dotenv');
-dotenv.config();
-const app = express();
 const mdb = require('./utils/mdb');
 const settings = require('./utils/settings');
 
+const app = express();
 const config = settings.config();
+const process = settings.envVar();
 
 // app.use components
 app.set('view engine', 'ejs');
