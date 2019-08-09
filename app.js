@@ -1,11 +1,12 @@
 const express = require('express');
+const mongodb = require('mongodb');
 const mdb = require('./utils/mdb');
 const settings = require('./utils/settings');
 
 const app = express();
 const config = settings.config();
 const process = settings.envVar();
-
+// Mongo
 // app.use components
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
