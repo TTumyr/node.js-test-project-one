@@ -7,7 +7,7 @@ exports.system = () => {
     mdbCon: process.env.mdbCon,
     port: process.env.port || 3000,
     mdb: true,
-    listendb: false
+    listendb: true
   };
   return system;
 };

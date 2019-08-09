@@ -14,16 +14,7 @@ const connect = async (app, system, data) => {
           console.log(`listening on port: ${system.port} with mDB`)
         );
       db = client.db(system.dbname);
-      if (data.operation === 'find') {
-        let result = db
-          .collection(data.collection)
-          .find()
-          .toArray()
-          .then(content => {
-            console.log(content);
-            return content;
-          });
-      }
+      exports.db = db;
     }
   );
 };

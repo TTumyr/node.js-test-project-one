@@ -6,33 +6,32 @@ const settings = require('./utils/settings');
 const app = express();
 const system = settings.system();
 const process = settings.envVar();
-// Mongo query
-const mdbQuery = {
-  operation: 'none',
-  collection: 'none'
-};
+
 // app.use components
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//test connection
-const mdbConnect = async (system, mdbQuery) => {
-  mdb.connect(null, system, mdbQuery);
+// Mongo query
+const mdbQuery = {
+  operation: 'none',
+  collection: 'none'
 };
 
 //basic routes --> TODO
 app.get('/', (req, res) => {
   mdbQuery.operation = 'find';
   mdbQuery.collection = 'data1';
-  mdbConnect(system, mdbQuery).then(data => {
-    console.log(data);
-  });
-  res.render('index.ejs');
+  mdb.db
+    .collection(mdbQuery.collection)
+    .find()
+    .toArray((err, items) => {
+      res.render('index.ejs', { items });
+    });
 });
 
-const connections = () => {
+const mdbConSetup = () => {
   //set up db connection
   sendApp = null;
   if (system.mdb) {
@@ -47,4 +46,4 @@ const connections = () => {
     app.listen(system.port, console.log(`listening on port: ${system.port}`));
   }
 };
-connections();
+mdbConSetup();

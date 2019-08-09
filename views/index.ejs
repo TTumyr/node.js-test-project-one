@@ -7,7 +7,11 @@
     <title>NodeJs</title>
   </head>
   <body>
-    <div class="display1"></div>
+    <div class="display1">
+      <% items.forEach((item) => { %>
+      <p><%= JSON.stringify(item) %></p>
+      <% }) %>
+    </div>
     <form action="" method="POST">
       <label for="field1">field 1</label>
       <input name="field1" type="text" id="field1" />
