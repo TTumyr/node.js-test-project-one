@@ -4,7 +4,7 @@ const mdb = require('./utils/mdb');
 const settings = require('./utils/settings');
 
 const app = express();
-const config = settings.config();
+const system = settings.system();
 const process = settings.envVar();
 // Mongo
 // app.use components
@@ -21,20 +21,16 @@ app.get('/', (req, res) => {
 const connections = () => {
   //set up db connection
   sendApp = null;
-  if (config.mdb) {
-    if (config.listenIndb) {
+  if (system.mdb) {
+    if (system.listenIndb) {
       sendApp = app;
     }
-    mdb.mongoConnect(sendApp, process);
+    mdb.mongoConnect(sendApp, process, system);
   }
 
   //basic server listening, db independent
-  if (!config.listenIndb) {
-    app.listen(
-      process.env.port,
-      console.log(`listening on port: ${process.env.port}`)
-    );
+  if (!system.listenIndb) {
+    app.listen(system.port, console.log(`listening on port: ${system.port}`));
   }
 };
-
 connections();
