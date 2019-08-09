@@ -3,7 +3,7 @@ dotenv.config();
 // System configuration
 exports.system = () => {
   const system = {
-    port: 3000,
+    port: process.env.port || 3000,
     mdb: true,
     listenIndb: false
   };
