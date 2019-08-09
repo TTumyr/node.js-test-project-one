@@ -3,9 +3,11 @@ dotenv.config();
 // System configuration
 exports.system = () => {
   const system = {
+    dbname: process.env.dbname,
+    mdbCon: process.env.mdbCon,
     port: process.env.port || 3000,
     mdb: true,
-    listenIndb: false
+    listendb: false
   };
   return system;
 };

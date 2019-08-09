@@ -1,27 +1,41 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
+const ObjectID = mongodb.ObjectID;
 
-const mongoConnect = (app, process, system) => {
-  MongoClient.connect(process.env.mdbCon, { useNewUrlParser: true }).then(
-    client => {
-      //server listen with mdb
+const connect = async (app, system, data) => {
+  MongoClient.connect(
+    system.mdbCon,
+    { useNewUrlParser: true },
+    (err, client) => {
+      if (err) throw err;
       if (app)
         app.listen(
           system.port,
-          console.log(`listening on port: ${process.env.port} with mDB`)
+          console.log(`listening on port: ${system.port} with mDB`)
         );
+      db = client.db(system.dbname);
+      if (data.operation === 'find') {
+        let result = db
+          .collection(data.collection)
+          .find()
+          .toArray()
+          .then(content => {
+            console.log(content);
+            return content;
+          });
+      }
     }
   );
 };
 
-const mdbStore = (mongoStore, process, system) => {
+const store = (mongoStore, system) => {
   const store = new mongoStore({
-    uri: process.env.mdbCon,
+    uri: system.mdbCon,
     collection: 'sessions',
     clear_interval: 3600
   });
   return store;
 };
 
-exports.mongoConnect = mongoConnect;
-exports.mdbStore = mdbStore;
+exports.connect = connect;
+exports.store = store;
