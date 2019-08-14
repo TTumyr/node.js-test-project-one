@@ -6,12 +6,19 @@
       <% items.forEach((item) => { %>
       <p><%= JSON.stringify(item) %></p>
       <% }) %>
+      <div>
+        <a href="/login">user login</a>
+      </div>
+      <div>
+        <a href="/register-user">register user</a>
+      </div>
     </div>
     <form action="" method="POST">
       <label for="field1">field 1</label>
       <input name="field1" type="text" id="field1" />
       <button type="submit">Send</button>
     </form>
-    <%- include('./includes/footer.ejs', {system}) %>
+    <%- include('./includes/scripts.ejs') %> <%-
+    include('./includes/footer.ejs') %>
   </body>
 </html>
