@@ -1,4 +1,20 @@
 body {
-  margin: 0;
   background: lightyellow;
+}
+table {
+  min-width: 520px;
+  background-color: lightgreen;
+  border: 1px solid rgba(0, 128, 0, 0.322);
+  margin: 20px;
+}
+thead {
+  border-bottom: 1px solid green;
+}
+
+th {
+  padding: 4px;
+}
+td {
+  border: 1px solid rgba(0, 128, 0, 0.322);
+  padding: 4px;
 }

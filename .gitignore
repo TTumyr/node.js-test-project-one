@@ -1,6 +1,7 @@
 # folders
 node_modules/
 public/img/
+models/
 
 #files
 .env
