@@ -1,4 +1,6 @@
 const mongodb = require('mongodb');
+const session = require('express-session');
+const mdbStore = require('connect-mongodb-session')(session);
 const MongoClient = mongodb.MongoClient;
 const ObjectID = mongodb.ObjectID;
 
@@ -19,8 +21,8 @@ const connect = async (app, system, data) => {
   );
 };
 
-const store = (mongoStore, system) => {
-  const store = new mongoStore({
+const store = system => {
+  const store = new mdbStore({
     uri: system.mdbCon,
     collection: 'sessions',
     clear_interval: 3600
@@ -28,5 +30,11 @@ const store = (mongoStore, system) => {
   return store;
 };
 
+const query = {
+  operation: 'none',
+  collection: 'none'
+};
+
 exports.connect = connect;
 exports.store = store;
+exports.query = query;
