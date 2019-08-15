@@ -2,7 +2,7 @@
 
 ---
 
-TODO => Improve object passing between app.js, routes.js, and site.js
+TODO => Improve object passing between app.js, routes.js, and site.js. Cleanup verification and sanitation routines. Create model objects e.g. User.
 
 Done => create separation between app/routes/controls when or if the project gets bigger.
 
