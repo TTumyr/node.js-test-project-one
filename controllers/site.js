@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const sanitize = require('sanitize-html');
+const validator = require('validator');
 const mdb = require('../utils/mdb');
 const settings = require('../utils/settings');
 const system = settings.system();
@@ -43,7 +44,11 @@ exports.registerUser = (req, res, next) => {
         allowedIframeHostnames: []
       });
       cleanUsername.trim();
-      if (cleanUsername !== '') {
+      if (!validator.isAlphanumeric(cleanUsername)) {
+        res.end('Username not accepted');
+      } else if (!validator.isEmail(req.body.email)) {
+        res.end('Not a valid email address');
+      } else if (cleanUsername !== '') {
         mdb.db
           .collection(mdb.query.collection)
           .insertOne({
@@ -59,10 +64,10 @@ exports.registerUser = (req, res, next) => {
             res.redirect('/');
           });
       } else {
-        res.send('Username not allowed');
+        res.end('Something went wrong');
       }
     } else {
-      res.send('No register possible yet.\n<a href="/register-user">back</a>');
+      res.end('No register possible yet.\n<a href="/register-user">back</a>');
     }
   }
 };

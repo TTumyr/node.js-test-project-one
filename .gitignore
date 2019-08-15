@@ -1,7 +1,8 @@
 # folders
 node_modules/
 public/img/
-models/
+
 
 #files
+models/User_oldfile.js
 .env
