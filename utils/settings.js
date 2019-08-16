@@ -3,13 +3,19 @@ dotenv.config();
 // System configuration
 exports.system = () => {
   const system = {
-    dbname: process.env.dbname,
-    mdbCon: process.env.mdbCon,
     port: process.env.port || 3000,
-    mdb: true,
     listendb: true,
     bstrap4css: true,
-    bstrap4js: true
+    bstrap4js: true,
+    usemdb: true,
+    mdb: {
+      db: process.env.dbname,
+      con: process.env.mdbCon,
+      col: {
+        users: 'users',
+        session: 'sessions'
+      }
+    }
   };
   return system;
 };

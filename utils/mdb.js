@@ -6,7 +6,7 @@ const ObjectID = mongodb.ObjectID;
 
 const connect = async (app, system, data) => {
   MongoClient.connect(
-    system.mdbCon,
+    system.mdb.con,
     { useNewUrlParser: true },
     (err, client) => {
       if (err) throw err;
@@ -15,7 +15,7 @@ const connect = async (app, system, data) => {
           system.port,
           console.log(`listening on port: ${system.port} with mDB`)
         );
-      db = client.db(system.dbname);
+      db = client.db(system.db);
       exports.db = db;
     }
   );
@@ -23,18 +23,12 @@ const connect = async (app, system, data) => {
 
 const store = system => {
   const store = new mdbStore({
-    uri: system.mdbCon,
+    uri: system.mdb.con,
     collection: 'sessions',
     clear_interval: 3600
   });
   return store;
 };
 
-const query = {
-  operation: 'none',
-  collection: 'none'
-};
-
 exports.connect = connect;
 exports.store = store;
-exports.query = query;
