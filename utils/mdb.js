@@ -4,7 +4,7 @@ const mdbStore = require('connect-mongodb-session')(session);
 const MongoClient = mongodb.MongoClient;
 const ObjectID = mongodb.ObjectID;
 
-const connect = async (app, system, data) => {
+const connect = async (app, system) => {
   MongoClient.connect(
     system.mdb.con,
     { useNewUrlParser: true },

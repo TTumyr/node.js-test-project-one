@@ -32,11 +32,11 @@ app.use(routes);
 const mdbConSetup = () => {
   //set up db connection
   sendApp = null;
-  if (system.mdb) {
+  if (system.usemdb) {
     if (system.listendb) {
       sendApp = app;
     }
-    mdb.connect(sendApp, system, mdb.query);
+    mdb.connect(sendApp, system);
   }
 
   //independent listening
