@@ -32,6 +32,7 @@
     "connect-mongo": "^3.0.0",
     "connect-mongodb-session": "^2.2.0",
     "cors": "^2.8.5",
+    "csurf": "^1.10.0",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
     "express": "^4.17.1",

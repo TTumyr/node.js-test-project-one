@@ -1,5 +1,7 @@
 const express = require('express');
 const session = require('express-session');
+const flash = require('connect-flash');
+const csrf = require('csurf');
 const mdb = require('./utils/mdb');
 const settings = require('./utils/settings');
 const routes = require('./routes/routes.js');
@@ -12,6 +14,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(flash());
+//app.use(csrf());  // CSRF protection on deployment. Add:  <input type="hidden" name="_csrf" value="<%= csrfToken %>">  to input forms.
 app.use(
   session({
     secret: '1234#changeOnDeploy',
