@@ -1,17 +1,15 @@
 const bcrypt = require('bcrypt');
 const sanitize = require('sanitize-html');
 const validator = require('validator');
-const mdb = require('../utils/mdb');
 const settings = require('../utils/settings');
 const system = settings.system();
+const user = require('../utils/mdb').db.collection(system.mdb.col.users);
 
+//console.log(mdb.db.collection(system.mdb.col.users));
 exports.home = (req, res, next) => {
-  mdb.db
-    .collection(system.mdb.col.users)
-    .find()
-    .toArray((err, users) => {
-      res.render('index.ejs', { users, system, pgTitle: 'nodejs', path: '/' });
-    });
+  user.find().toArray((err, users) => {
+    res.render('index.ejs', { users, system, pgTitle: 'nodejs', path: '/' });
+  });
 };
 
 exports.login = (req, res, next) => {

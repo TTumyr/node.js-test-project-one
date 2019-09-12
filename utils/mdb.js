@@ -5,26 +5,28 @@ const MongoClient = mongodb.MongoClient;
 const ObjectID = mongodb.ObjectID;
 
 const connect = async (app, system) => {
-  MongoClient.connect(
-    system.mdb.con,
-    { useNewUrlParser: true },
-    (err, client) => {
-      if (err) throw err;
-      if (app)
-        app.listen(
-          system.port,
-          console.log(`listening on port: ${system.port} with mDB`)
-        );
-      db = client.db(system.db);
-      exports.db = db;
-    }
-  );
+  return new Promise(async (resolve, reject) => {
+    MongoClient.connect(
+      system.mdb.con,
+      { useNewUrlParser: true },
+      (err, client) => {
+        if (err) throw err;
+        if (app)
+          app.listen(
+            system.port,
+            console.log(`listening on port: ${system.port} with mDB`)
+          );
+        db = client.db();
+        resolve((exports.db = db));
+      }
+    );
+  });
 };
 
 const store = system => {
   const store = new mdbStore({
     uri: system.mdb.con,
-    collection: 'sessions',
+    collection: system.mdb.col.session,
     clear_interval: 3600
   });
   return store;
