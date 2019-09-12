@@ -43,8 +43,7 @@ exports.registerUser = (req, res, next) => {
       } else if (!validator.isEmail(req.body.email)) {
         res.end('Not a valid email address');
       } else if (cleanUsername !== '') {
-        mdb.db
-          .collection(system.mdb.col.users)
+        user
           .insertOne({
             username: cleanUsername,
             email: req.body.email,
