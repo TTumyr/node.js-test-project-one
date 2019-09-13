@@ -16,11 +16,6 @@ const mdbInit = async () => {
     }
     await mdb.connect(sendApp, system);
   }
-
-  //independent listening
-  if (!system.listendb) {
-    app.listen(system.port, console.log(`listening on port: ${system.port}`));
-  }
 };
 const mainInit = async () => {
   // app.use components
@@ -47,5 +42,10 @@ const mainInit = async () => {
 const serverStart = async () => {
   await mdbInit();
   mainInit();
+
+  //independent listening
+  if (!system.listendb) {
+    app.listen(system.port, console.log(`listening on port: ${system.port}`));
+  }
 };
 serverStart();
