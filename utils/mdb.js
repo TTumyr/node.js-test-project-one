@@ -8,7 +8,7 @@ const connect = async (app, system) => {
   return new Promise(async (resolve, reject) => {
     MongoClient.connect(
       system.mdb.con,
-      { useNewUrlParser: true },
+      { useNewUrlParser: true, useUnifiedTopology: true },
       (err, client) => {
         if (err) throw err;
         if (app)
