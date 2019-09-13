@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const site = require('../controllers/site');
+const site = require('../controllers/siteCtrl');
 
 const router = express.Router();
 
